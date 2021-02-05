@@ -1,0 +1,2 @@
+class PriceTracker < ApplicationRecord
+end
