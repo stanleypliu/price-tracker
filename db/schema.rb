@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_01_205744) do
+ActiveRecord::Schema.define(version: 2021_02_09_211938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2021_02_01_205744) do
     t.bigint "product_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "site_id"
     t.index ["product_id"], name: "index_price_histories_on_product_id"
   end
 
@@ -40,18 +41,18 @@ ActiveRecord::Schema.define(version: 2021_02_01_205744) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "products_sites", id: false, force: :cascade do |t|
+    t.bigint "site_id"
+    t.bigint "product_id"
+    t.index ["product_id"], name: "index_products_sites_on_product_id"
+    t.index ["site_id"], name: "index_products_sites_on_site_id"
+  end
+
   create_table "sites", force: :cascade do |t|
     t.string "name"
     t.string "url", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "sites_products", id: false, force: :cascade do |t|
-    t.bigint "site_id"
-    t.bigint "product_id"
-    t.index ["product_id"], name: "index_sites_products_on_product_id"
-    t.index ["site_id"], name: "index_sites_products_on_site_id"
   end
 
   create_table "vouchers", force: :cascade do |t|
