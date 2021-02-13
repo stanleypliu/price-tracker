@@ -1,12 +1,14 @@
 import { createApp } from 'vue/dist/vue.esm-bundler'
 
-import HelloWorld from '../components/app.vue'
+import HeroHome from '../components/hero/HeroHome.vue'
+import NavBar from '../components/navbar/NavBar.vue'
 
 export default () => {
     document.addEventListener('DOMContentLoaded', () => {
         createApp({
           components: {
-            HelloWorld
+            HeroHome,
+            NavBar
           }  
         }).mount('#v-app')
     })
