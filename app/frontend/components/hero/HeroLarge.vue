@@ -1,17 +1,17 @@
 <template>
-  <div class="container row">
-    <div class="col s6">
-      <h1>{{ title }}</h1>
-    </div>
-  </div>
-  <div class="container row">
-    <div class="col s6">
-      <h3>{{ message }}</h3>
-    </div>
+  <div class="section" :style="`${ECommerceImage}`">
+    <div class="container row">
+      <div class="col s6">
+        <h1>{{ title }}</h1>
+        <h3>{{ message }}</h3>
+      </div>
+    </div>      
   </div>
 </template>
 
 <script>
+import ECommerceImage from '../../images/photos/ecommerce.jpg'
+
 import { ref } from 'vue'
 
 export default {
@@ -22,7 +22,8 @@ export default {
 
     return {
       title,
-      message
+      message,
+      ECommerceImage
     }
   }
 }

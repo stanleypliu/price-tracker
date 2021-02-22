@@ -14,8 +14,11 @@
 
   <body>
     <div id="v-app">
-      <nav-bar></nav-bar>
-      <%= yield %>
+      <%= render 'layouts/header' %>
+      
+      <main>
+        <%= yield %>
+      </main>
     </div>
   </body>
 </html>
