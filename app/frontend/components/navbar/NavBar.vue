@@ -11,11 +11,15 @@
 </template>
 
 <script>
+import { ref } from 'vue'
+
 export default {
   setup () {
-    
+    const isCurrentPage = ref(false)
 
-    return {}
+    return {
+      isCurrentPage
+    }
   }
 }
 </script>

@@ -1,6 +1,9 @@
 class SitesController < ApplicationController
   def index 
-    render json: Site.all
+    respond_to do |format|
+      format.html
+      format.json { render json: Site.all }
+    end
   end
 
   def new 

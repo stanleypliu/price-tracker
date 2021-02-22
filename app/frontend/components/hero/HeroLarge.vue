@@ -15,7 +15,7 @@
 import { ref } from 'vue'
 
 export default {
-  name: 'HelloWorld',
+  name: 'HeroLarge',
   setup() {
     const title = ref('Price Tracker')
     const message = ref('Set up price trackers that crawl the internet for your favourite products 📣')
