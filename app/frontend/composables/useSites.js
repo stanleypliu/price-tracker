@@ -1,5 +1,5 @@
 import { ref, onMounted } from 'vue'
-import { fetchCurrentSites } from '../api/sites'
+import { fetchCurrentSites } from '@/api/sites'
 
 export default function useSites() {
   const currentSites = ref([])

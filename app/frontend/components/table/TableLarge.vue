@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import useSites from '../../composables/useSites'
+import useSites from '@/composables/useSites'
 
 export default {
   name: 'TableLarge',

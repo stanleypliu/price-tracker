@@ -1,30 +1,68 @@
 <template>
-  <div class="section" :style="`${ECommerceImage}`">
+  <div
+    class="hero-large"
+  >
     <div class="container row">
-      <div class="col s6">
-        <h1>{{ title }}</h1>
-        <h3>{{ message }}</h3>
+      <div class="col s7 offset-s4">
+        <h1 class="hero-large__title section">{{ title }}</h1>
+        <br>
+        <h3 class="hero-large__description section">{{ message }}</h3>
       </div>
-    </div>      
+    </div>
   </div>
 </template>
 
 <script>
-import ECommerceImage from '../../images/photos/ecommerce.jpg'
-
-import { ref } from 'vue'
+// import ECommerceImage from '@/images/photos/ecommerce.jpg'
 
 export default {
   name: 'HeroLarge',
-  setup() {
-    const title = ref('Price Tracker')
-    const message = ref('Set up price trackers that crawl the internet for your favourite products 📣')
+  props: {
+    title: {
+      type: String,
+      default: ''
+    },
+    message: {
+      type: String,
+      default: ''
+    }
+  },
+  setup(props) {
+    
 
     return {
-      title,
-      message,
-      ECommerceImage
+      // style
+      // ECommerceImage
     }
   }
 }
 </script>
+
+<style scoped lang="scss">
+.hero-large {
+  background-image: url("../../images/photos/ecommerce.jpg");
+  background-size: cover;
+  background-position: right;
+
+  color: white;
+
+  height: 100vh;
+
+  position: relative;
+
+  &:before {
+    background: #95a3b3; 
+    content: '';
+    filter: opacity(0.3);
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+  }
+}
+</style>

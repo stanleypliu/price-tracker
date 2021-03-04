@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import useSites from '../../composables/useSites'
+import useSites from '@/composables/useSites'
 import { ref, computed } from 'vue'
 
 export default {
