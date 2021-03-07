@@ -1,12 +1,15 @@
 <template>
-  <div
-    class="hero-large"
-    :style="image"
-  >
-    <div class="container row">
-      <div class="col s7 offset-s4">
+  <div style="position: relative">
+    <div class="hero-large" :style="image"></div>
+    <icon-arrow-down
+      v-if="downArrow"
+      @click="scrollToElem('instructions')"
+      class="icon-arrow-down"
+    ></icon-arrow-down>
+    <div class="hero-large__banner container row">
+      <div class="hero-large__text col s7 offset-s3">
         <h1 class="hero-large__title section">{{ title }}</h1>
-        <br>
+        <br />
         <h3 class="hero-large__description section">{{ message }}</h3>
       </div>
     </div>
@@ -16,13 +19,22 @@
 <script>
 import { computed } from 'vue'
 import { getPhotoUrl } from '@/utils/photos'
+import scrollToElem from '@/composables/scrollTo'
+import IconArrowDown from '@/components/icons/IconArrowDown.vue'
 
 export default {
   name: 'HeroLarge',
+  components: {
+    IconArrowDown,
+  },
   props: {
     backgroundImage: {
       type: String,
       default: 'ecommerce'
+    },
+    downArrow: {
+      type: Boolean,
+      default: true
     },
     title: {
       type: String,
@@ -34,10 +46,15 @@ export default {
     }
   },
   setup(props) {
-    const image = computed(() => ({ 'background-image': `url("${getPhotoUrl(props.backgroundImage)}")` }))
+    const image = computed(() => (
+      {
+        'background-image': `url("${getPhotoUrl(props.backgroundImage)}")`
+      }
+    ))
 
     return {
-      image
+      image,
+      scrollToElem
     }
   }
 }
@@ -49,25 +66,44 @@ export default {
   background-size: cover;
   background-position: right;
 
-  color: white;
+  filter: blur(3px);
 
   height: 100vh;
 
-  position: relative;
+  &__banner {
+    background-color: rgba($white, 0.8);
+    border-right: 1px solid $blue;
 
-  &:before {
-    background: #95a3b3; 
-    content: '';
-    filter: opacity(0.3);
+    height: 100vh;
 
-    width: 100%;
-    height: 100%;
-
-    display: block;
     position: absolute;
     top: 0;
-    left: 0;
-    z-index: 2;
   }
+
+  &__text {
+    position: absolute;
+    top: 20%;
+  }
+
+  &__title {
+    font-weight: 500;
+  }
+
+  &__description {
+    font-weight: 200;
+  }
+}
+
+.icon-arrow-down {
+  cursor: pointer;
+
+  height: 40px;
+  width: 40px;
+
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+
+  z-index: 2;
 }
 </style>
