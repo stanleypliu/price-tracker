@@ -1,6 +1,7 @@
 <template>
   <div
     class="hero-large"
+    :style="image"
   >
     <div class="container row">
       <div class="col s7 offset-s4">
@@ -13,11 +14,16 @@
 </template>
 
 <script>
-// import ECommerceImage from '@/images/photos/ecommerce.jpg'
+import { computed } from 'vue'
+import { getPhotoUrl } from '@/utils/photos'
 
 export default {
   name: 'HeroLarge',
   props: {
+    backgroundImage: {
+      type: String,
+      default: 'ecommerce'
+    },
     title: {
       type: String,
       default: ''
@@ -28,11 +34,10 @@ export default {
     }
   },
   setup(props) {
-    
+    const image = computed(() => ({ 'background-image': `url("${getPhotoUrl(props.backgroundImage)}")` }))
 
     return {
-      // style
-      // ECommerceImage
+      image
     }
   }
 }
@@ -40,7 +45,6 @@ export default {
 
 <style scoped lang="scss">
 .hero-large {
-  background-image: url("../../images/photos/ecommerce.jpg");
   background-size: cover;
   background-position: right;
 
