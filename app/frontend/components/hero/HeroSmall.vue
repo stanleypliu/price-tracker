@@ -17,7 +17,7 @@ export default {
     const title = ref('All Sites')
     const { currentSites, getCurrentSites } = useSites()
     const message = computed(() => `Currently we have ${currentSites.value.length} site(s) in the system`)
-    console.log(currentSites)
+
     return {
       title, 
       currentSites,

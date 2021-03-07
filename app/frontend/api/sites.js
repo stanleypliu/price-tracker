@@ -1,15 +1,14 @@
 import axios from 'axios'
 
-export function fetchCurrentSites() {
-  return axios.get('/sites', {
-    headers: {
-      'Accept': 'application/json'
-    }
-  })
-  .then((response) => {
+export async function fetchCurrentSites() {
+  try {
+    const response = await axios.get('/sites', {
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
     return response.data
-  })
-  .catch((error)=> {
+  } catch(error) {
     console.log(error)
-  })
+  }
 }

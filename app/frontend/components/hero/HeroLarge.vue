@@ -45,6 +45,7 @@ export default {
 
 <style scoped lang="scss">
 .hero-large {
+  background-color: $grey-light;
   background-size: cover;
   background-position: right;
 

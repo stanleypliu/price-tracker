@@ -6,4 +6,11 @@ export default defineConfig({
   plugins: [
     RubyPlugin(), vue()
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "@/stylesheets/base/variables";`
+      }
+    }
+  }
 })
