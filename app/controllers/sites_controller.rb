@@ -7,7 +7,10 @@ class SitesController < ApplicationController
   end
 
   def new 
-    render json: Site.new
+    respond_to do |format|
+      format.html
+      format.json { render json: Site.new }
+    end
   end
 
   private 

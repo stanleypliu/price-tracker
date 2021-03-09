@@ -5,6 +5,7 @@ import HeroLarge from '../components/hero/HeroLarge.vue'
 import HeroSmall from '../components/hero/HeroSmall.vue'
 import NavBar from '../components/navbar/NavBar.vue'
 import TableLarge from '../components/table/TableLarge.vue'
+import VForm from '../components/forms/VForm.vue'
 
 export default () => {
     document.addEventListener('DOMContentLoaded', () => {
@@ -14,7 +15,8 @@ export default () => {
             HeroLarge,
             HeroSmall,
             NavBar,
-            TableLarge
+            TableLarge,
+            VForm
           }  
         }).mount('#v-app')
     })

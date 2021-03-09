@@ -1,3 +1,11 @@
-<hero-small></hero-small>
+<hero-small title="All Sites">
+  <template v-slot>
+    <div class="section">
+      <%= link_to sites_new_path, class: 'waves-effect waves-light btn' do %>
+        <i class="material-icons left">add</i> Add a new site
+      <% end %>
+    </div>
+  </template>
+</hero-small>
 
 <table-large></table-large>
