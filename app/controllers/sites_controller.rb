@@ -13,7 +13,14 @@ class SitesController < ApplicationController
   def new 
   end
 
-  def show 
+  def show
+    respond_to do |format|
+      format.html
+      format.json do 
+        response.headers['Vary'] = 'Accept'
+        render json: Site.find(individual_site_param['id'].to_i)
+      end
+    end
   end
 
   def create 
@@ -21,9 +28,9 @@ class SitesController < ApplicationController
 
     if !new_site.id.present?
       new_site.save
-      render json: { redirect_link: "#{sites_path}" }
+      render json: { redirect_link: "#{sites_path}", message: 'Site successfully added' }
     else 
-      render json: { redirect_link: "#{new_site_path}" }
+      render json: { redirect_link: "#{new_site_path}", message: "That site\'s already present" }
     end
   end
 
@@ -31,5 +38,9 @@ class SitesController < ApplicationController
 
   def site_params
     params.require(:site).permit(:name, :url)
+  end
+
+  def individual_site_param
+    params.permit(:id)
   end
 end
