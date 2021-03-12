@@ -5,24 +5,28 @@
         <h3 class="v-form__title">Add a site:</h3>
         <form @submit="createNewSite">
           <div class="input-field">
-            <label for="site-url">Site URL</label>
+            <label for="site-url">Site URL (needs to include a https:// or http:// in front)</label>
             <input
+              class="validate"
               name="site"
               type="url"
               id="site-url"
               v-model.trim="siteUrl"
-              @blur="checkIfEmpty(siteUrl)"
+              @blur="checkUrl"
             />
+            <small class="red-text" v-if="urlValidity === 'invalid'">Please enter a URL.</small>
           </div>
           <div class="input-field">
             <label for="site-name">Site Name</label>
             <input
+              class="validate"
               name="name"
               type="text"
               id="site-name"
               v-model.trim="siteName"
-              @blur="checkIfEmpty(siteName)"
+              @blur="checkName"
             />
+            <small class="red-text" v-if="nameValidity === 'invalid'">Please enter a name for your site.</small>
           </div>
 
           <div class="submit-wrapper section">
@@ -42,16 +46,27 @@
 
 <script>
 import { createSites } from '@/composables/useSites.js'
-import { formValidation } from '@/composables/forms.js'
+import { ref } from 'vue'
 
 export default {
   name: 'VForm',
   setup() {
     const { siteUrl, siteName, createNewSite } = createSites()
-    const { checkIfEmpty } = formValidation()
+    const urlValidity = ref('pending')
+    const nameValidity = ref('pending')
+    function checkUrl() {
+      siteUrl.value === '' ? urlValidity.value = 'invalid' : urlValidity.value = 'valid'
+    }
+
+    function checkName() {
+      siteName.value === '' ? nameValidity.value = 'invalid' : nameValidity.value = 'valid'
+    } 
 
     return {
-      checkIfEmpty,
+      checkUrl,
+      checkName,
+      urlValidity,
+      nameValidity,
       siteUrl,
       siteName,
       createNewSite

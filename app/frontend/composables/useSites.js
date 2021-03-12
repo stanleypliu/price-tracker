@@ -30,7 +30,7 @@ export function createSites() {
     siteName = ''
     siteUrl = ''
   }
-
+ 
   return {
     siteName,
     siteUrl,
