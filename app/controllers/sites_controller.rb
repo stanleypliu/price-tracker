@@ -2,15 +2,22 @@ class SitesController < ApplicationController
   def index 
     respond_to do |format|
       format.html
-      format.json { render json: Site.all }
+      format.json do 
+        # Needed to stop Chrome caching JSON
+        response.headers['Vary'] = 'Accept'
+        render json: Site.all
+      end
     end
   end
 
   def new 
-    respond_to do |format|
-      format.html
-      format.json { render json: Site.new }
-    end
+  end
+
+  def show 
+  end
+
+  def create 
+    # TODO
   end
 
   private 

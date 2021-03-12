@@ -7,11 +7,13 @@
       class="icon-arrow-down"
     ></icon-arrow-down>
     <div class="hero-large__banner container row">
-      <div class="hero-large__text col s7 offset-s3">
-        <h1 class="hero-large__title section">{{ title }}</h1>
-        <br />
-        <h3 class="hero-large__description section">{{ message }}</h3>
-      </div>
+      <transition>
+        <div class="hero-large__text col s8 offset-s3">
+          <h1 class="hero-large__title section">{{ title }}</h1>
+          <br />
+          <h3 class="hero-large__description section">{{ message }}</h3>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -101,9 +103,16 @@ export default {
   width: 40px;
 
   position: absolute;
-  bottom: 10px;
+  bottom: 20px;
   left: 50%;
 
   z-index: 2;
+
+  transition: 0.2s bottom cubic-bezier(0.165, 0.84, 0.44, 1);
+
+  &:hover {
+    bottom: 10px;
+    transition: 0.2s bottom cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container row section">
+  <div class="container row hero-small">
     <div class="col s6 ">
       <h2>{{ title }}</h2>
       <h4>{{ message }}</h4>
@@ -10,8 +10,7 @@
 </template>
 
 <script>
-import useSites from '@/composables/useSites'
-import { computed } from 'vue'
+import { useSites } from '@/composables/useSites'
 
 export default {
   name: 'HeroSmall',
@@ -22,9 +21,8 @@ export default {
     }
   },
   setup() {
-    const { currentSites, getCurrentSites } = useSites()
-    const message = computed(() => `Currently we have ${currentSites.value.length} site(s) in the system`)
-
+    const { currentSites, getCurrentSites, message } = useSites()
+    
     return {
       currentSites,
       getCurrentSites,
@@ -33,3 +31,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  .hero-small {
+    margin-top: 100px;
+  }
+</style>

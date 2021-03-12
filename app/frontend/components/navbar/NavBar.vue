@@ -1,13 +1,15 @@
 <template>
-  <nav class="navbar">
-    <div class="nav-wrapper container">
-      <!-- TODO - make a logo? -->
-      <a href="/" class="logo-text">Price<span class="logo-text__span">Tracker</span></a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="/sites" class="navbar__link">Sites</a></li>
-      </ul>
-    </div>
-  </nav>
+  <header>
+    <nav class="navbar">
+      <div class="nav-wrapper container">
+        <!-- TODO - make a logo? -->
+        <a href="/" class="logo-text">Price<span class="logo-text__span">Tracker</span></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="/sites" class="navbar__link">Sites</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 </template>
 
 <script>
@@ -25,6 +27,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+header {
+  position: fixed;
+  top: 0;
+
+  width: 100%;
+
+  z-index: 2;
+}
+
 .logo-text {
   font-size: 32px;
 
@@ -35,7 +46,7 @@ export default {
 
 .navbar {
   background-color: $light-green;
-  
+
   &__link {
     color: $grey-light;
   }

@@ -1,53 +1,75 @@
 <template>
-  <div class="row section">
+  <div class="v-form__wrapper row section">
     <div class="col s6 offset-s4">
-      <div class="v-form container">
-        <h3 class="v-form__header">Add a site:</h3>
-        <label for="site">Site URL</label>
-        <input type="text" id="site" />
-        <label for="name">Site Name</label>
-        <input type="text" id="name" />
+      <div class="v-form card-panel medium container">
+        <h3 class="v-form__title">Add a site:</h3>
+        <form @submit="createNewSite">
+          <div class="input-field">
+            <label for="site-url">Site URL</label>
+            <input
+              name="site"
+              type="url"
+              id="site-url"
+              v-model.trim="siteUrl"
+              @blur="checkIfEmpty(siteUrl)"
+            />
+          </div>
+          <div class="input-field">
+            <label for="site-name">Site Name</label>
+            <input
+              name="name"
+              type="text"
+              id="site-name"
+              v-model.trim="siteName"
+              @blur="checkIfEmpty(siteName)"
+            />
+          </div>
 
-        <div class="submit-wrapper">
-          <button
-            type="submit"
-            class="waves-effect waves-light btn"
-            name="action"
-            @click="createNewSite"
-          >
-            <i class="material-icons right">send</i>Submit
-          </button>
-        </div>
+          <div class="submit-wrapper section">
+            <button
+              :disabled="siteName === '' || siteUrl === ''"
+              type="submit"
+              class="waves-effect waves-light btn"
+            >
+              <i class="material-icons right">send</i>Submit
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { createSites } from '@/composables/useSites.js'
+import { formValidation } from '@/composables/forms.js'
+
 export default {
   name: 'VForm',
   setup() {
+    const { siteUrl, siteName, createNewSite } = createSites()
+    const { checkIfEmpty } = formValidation()
 
-
-    return {}
+    return {
+      checkIfEmpty,
+      siteUrl,
+      siteName,
+      createNewSite
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import "materialize-css/dist/css/materialize";
-
 .v-form {
-  @extend .card;
-
   padding: 40px;
 
-  &__header {
+  &__title {
     margin-top: 0;
   }
-}
 
-.submit-wrapper {
-  @extend .section;
+  &__wrapper {
+    margin-top: 80px;
+  }
 }
 </style>
