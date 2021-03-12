@@ -3,7 +3,7 @@
     <div class="col s6 offset-s4">
       <div class="v-form card-panel medium container">
         <h3 class="v-form__title">Add a site:</h3>
-        <form @submit="createNewSite">
+        <form @submit.prevent="createNewSite">
           <div class="input-field">
             <label for="site-url">Site URL (needs to include a https:// or http:// in front)</label>
             <input

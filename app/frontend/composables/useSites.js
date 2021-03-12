@@ -24,8 +24,8 @@ export function createSites() {
   const siteUrl = ref('') 
   const createNewSite = async () => {
     await createSite({
-      'name': siteName,
-      'url': siteUrl
+      'name': siteName.value,
+      'url': siteUrl.value
     })
     siteName = ''
     siteUrl = ''

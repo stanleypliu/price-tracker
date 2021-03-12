@@ -3,4 +3,7 @@ class Site < ApplicationRecord
   has_and_belongs_to_many :products
   has_many :price_histories
 
+  validates :url, uniqueness: true
+  validates :name, uniqueness: true
+
 end

@@ -20,7 +20,10 @@ export async function createSite(params) {
 
   try {
     const response = await axios.post('/sites', params)
-    if (response.status === 200) { return }
+    if (response.status === 200 && response.data.redirect_link !== undefined) { 
+      window.location = response.data.redirect_link
+      return 
+    }
   } catch(error) {
     console.log(error)
   }

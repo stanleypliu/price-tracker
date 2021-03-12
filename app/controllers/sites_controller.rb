@@ -17,7 +17,14 @@ class SitesController < ApplicationController
   end
 
   def create 
-    # TODO
+    new_site = Site.find_or_initialize_by(site_params)
+
+    if !new_site.id.present?
+      new_site.save
+      render json: { redirect_link: "#{sites_path}" }
+    else 
+      render json: { redirect_link: "#{new_site_path}" }
+    end
   end
 
   private 
