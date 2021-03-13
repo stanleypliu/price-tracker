@@ -1,13 +1,18 @@
 <template>
   <div class="container row hero-site">
-    <div class="col s6">
-      <h2>{{ siteName }}</h2>
-      <!-- <button class="waves-effect waves-light btn"> -->
-        <a :href="siteUrl">VISIT</a>
-      <!-- </button> -->
+    <div class="row">
+      <div class="col s6">
+        <h1>{{ siteName }}</h1>
+        <br />
+        <a class="white-text waves-effect waves-light btn-large" :href="siteUrl"
+          >VISIT</a
+        >
+      </div>
+    </div>
+    <div class="row section">
+      <h3>{{ message }}</h3>
     </div>
   </div>
-  <hr />
 </template>
 
 <script>
@@ -22,12 +27,15 @@ export default {
     },
   },
   setup(props) {
-    const { siteName, siteUrl, getCurrentSite } = useSite(props.siteId)
+    const { numberOfProducts, siteName, siteUrl, getCurrentSite, getProducts, message } = useSite(props.siteId)
 
     return {
+      message,
+      numberOfProducts,
       siteName,
       siteUrl,
-      getCurrentSite
+      getCurrentSite,
+      getProducts
     }
   }
 }

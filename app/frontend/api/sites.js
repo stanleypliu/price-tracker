@@ -35,7 +35,6 @@ export async function createSite(params) {
     const response = await axios.post('/sites', params)
     if (response.status === 200 && response.data.redirect_link !== undefined) { 
       window.location = response.data.redirect_link
-      // return 
       M.toast({html: response.data.message})
     }
   } catch(error) {

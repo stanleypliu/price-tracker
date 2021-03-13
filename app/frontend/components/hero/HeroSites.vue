@@ -1,8 +1,8 @@
 <template>
   <div class="container row hero-sites">
-    <div class="col s6 ">
-      <h2>{{ title }}</h2>
-      <h4>{{ message }}</h4>
+    <div class="row">
+      <h1>{{ title }}</h1>
+      <h3>{{ message }}</h3>
       <slot></slot>
     </div>
   </div>

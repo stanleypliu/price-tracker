@@ -18,9 +18,13 @@ class SitesController < ApplicationController
       format.html
       format.json do 
         response.headers['Vary'] = 'Accept'
-        render json: Site.find(individual_site_param['id'].to_i)
+        render json: Site.find(individual_site_param)
       end
     end
+  end
+
+  def fetch_products 
+    render json: { productCount: Site.find(individual_site_param).products.count }
   end
 
   def create 
@@ -41,6 +45,6 @@ class SitesController < ApplicationController
   end
 
   def individual_site_param
-    params.permit(:id)
+    params.permit(:id)['id'].to_i
   end
 end
