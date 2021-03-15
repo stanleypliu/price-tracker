@@ -1,4 +1,4 @@
-import { ref, onMounted, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { fetchCurrentSites, fetchSite } from '@/api/sites'
 import { fetchProducts } from '@/api/products'
 import { createSite } from '@/api/sites'
@@ -36,10 +36,12 @@ export function useSite(id) {
   }
 
   const message = computed(() => {
-    if (numberOfProducts.value === 0) {
-      return 'No products found for this site. Why not track one?'
-    } else {
-      return `There are ${numberOfProducts.value} products registered for this site`
+    if (numberOfProducts) {
+      if (numberOfProducts.value === 0) {
+        return 'No products found for this site. Why not track one?'
+      } else {
+        return `There are ${numberOfProducts.value} products registered for this site`
+      }
     }
   })
 

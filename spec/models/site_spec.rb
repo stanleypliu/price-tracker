@@ -11,7 +11,7 @@ RSpec.describe Site, type: :model do
     context 'before submission' do 
       before { site.save }
 
-      let (:invalid_site) { FactoryBot.build(:invalid_site) }
+      let (:invalid_site) { FactoryBot.build(:invalid_url_site) }
       let (:second_site) { FactoryBot.build(:correct_site) }
 
       it 'must have a valid URL' do 

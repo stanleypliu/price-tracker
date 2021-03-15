@@ -5,9 +5,14 @@ FactoryBot.define do
       name { 'Google' }
     end 
 
-    factory :invalid_site do 
+    factory :invalid_url_site do 
       url { 'xdfesf' }
       name { 'Invalid!' }
+    end
+
+    factory :blank_name_site do 
+      url { 'https://www.test.com' }
+      name { '' }
     end
   end
 end
