@@ -32,11 +32,18 @@ class SitesController < ApplicationController
     new_site = Site.find_or_initialize_by(site_params)
 
     if new_site.id.present?
-      render json: { redirect_link: new_site_path.to_s, message: "That site\'s already present",
-                     status: :unprocessable_entity }
+      render json: { 
+        redirect_link: new_site_path.to_s, 
+        message: "That site\'s already present", 
+        status: :unprocessable_entity 
+      }
     else
       new_site.save
-      render json: { redirect_link: sites_path.to_s, message: 'Site successfully added', status: :created }
+      render json: { 
+        redirect_link: sites_path.to_s, 
+        message: 'Site successfully added', 
+        status: :created 
+      }
     end
   end
 

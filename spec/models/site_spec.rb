@@ -11,15 +11,21 @@ RSpec.describe Site, type: :model do
     context 'before submission' do 
       before { site.save }
 
-      let (:invalid_site) { FactoryBot.build(:invalid_url_site) }
+      let (:invalid_url_site) { FactoryBot.build(:invalid_url_site) }
+      let (:blank_name_site) { FactoryBot.build(:blank_name_site) }
       let (:second_site) { FactoryBot.build(:correct_site) }
 
       it 'must have a valid URL' do 
-        invalid_site.save
-        expect(invalid_site).not_to be_valid
+        invalid_url_site.save
+        expect(invalid_url_site).not_to be_valid
       end
 
-      it 'should not be a duplicate' do 
+      it 'must not have a blank name' do 
+        blank_name_site.save
+        expect(blank_name_site).not_to be_valid
+      end
+
+      it 'must not be a duplicate' do 
         second_site.save
         expect(second_site).not_to be_valid
       end

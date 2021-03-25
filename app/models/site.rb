@@ -4,6 +4,6 @@ class Site < ApplicationRecord
   has_many :price_histories
 
   validates :url, uniqueness: true, format: { with: URI.regexp }
-  validates :name, uniqueness: true
+  validates :name, uniqueness: true, presence: true
 
 end

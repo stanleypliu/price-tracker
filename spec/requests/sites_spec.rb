@@ -44,6 +44,46 @@ RSpec.describe "Sites", type: :request do
     end
   end
 
+  describe 'POST /sites' do 
+    let(:site_params) { FactoryBot.attributes_for(:correct_site) }
+    let(:post_request) { post '/sites', params: { site: site_params }, headers: headers }
+
+    context 'when the site fails to save' do
+      before do 
+        FactoryBot.create(:correct_site)
+        post_request
+      end
+
+      it 'returns the status code - unprocessable entity' do
+        expect(parsed_body[:status]).to eq("unprocessable_entity")
+      end
+
+      it 'returns the error in the response' do 
+        expect(parsed_body[:message]).to eq("That site's already present")
+      end
+
+      it 'returns the redirect link in the response' do 
+        expect(parsed_body[:redirect_link]).to eq(new_site_path)
+      end
+    end
+
+    context 'when trying to save a valid site not yet present' do 
+      before { post_request }
+
+      it 'returns the status code - created' do
+        expect(parsed_body[:status]).to eq("created")
+      end
+
+      it 'returns the error in the response' do 
+        expect(parsed_body[:message]).to eq("Site successfully added")
+      end
+
+      it 'returns the redirect link in the response' do 
+        expect(parsed_body[:redirect_link]).to eq(sites_path)
+      end
+    end
+  end
+
   describe 'GET /sites/:id' do
     it 'displays the show page for a site' do
       get "/sites/#{site.id}"
