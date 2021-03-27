@@ -1,4 +1,8 @@
-<hero-sites title="All Sites">
+<hero-sites title="Sites"></hero-sites>
+
+<list-sites></list-sites>
+
+<footer-sites>
   <template v-slot>
     <div class="section">
       <%= link_to new_site_path, class: 'waves-effect waves-light btn' do %>
@@ -6,6 +10,4 @@
       <% end %>
     </div>
   </template>
-</hero-sites>
-
-<table-large></table-large>
+</footer-sites>

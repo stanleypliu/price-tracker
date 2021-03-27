@@ -2,11 +2,6 @@ require 'rails_helper'
 
 RSpec.describe "Sites", type: :request do
   let(:headers) { { "Accept": "application/json" } }
-  let(:site) { 
-    FactoryBot.create(:correct_site) do |correct_site| 
-      FactoryBot.create_list(:product, 4, sites: [correct_site]) 
-    end
-  }
 
   describe "GET /sites" do
     it 'gets the index page' do
@@ -15,24 +10,28 @@ RSpec.describe "Sites", type: :request do
       expect(response).to be_successful
       expect(response.content_type).to eq("text/html; charset=utf-8")
     end
-  end
 
-  context 'when the request wants JSON' do 
-    let(:sites) { 
-      FactoryBot.build_list(:site, 4) do |site, i|
-        name = "site#{i}"
-        site.name = name
-        site.url = "https://www.#{name}.com"
+    context 'when the request wants JSON' do 
+      let(:sites) { FactoryBot.create_list(:sequenced_site_with_products, 5) }
+      let(:sorted_sites) { sites.sort_by { |site| [-site.products.count, site.name] } }
+
+      before do 
+        sites
+        get '/sites', headers: headers 
       end
-    }
 
-    before { sites.map(&:save) }
+      it 'returns a list of the top 5 sites as a JSON' do 
+        expect(response.content_type).to eq("application/json; charset=utf-8")
+        expect(response.body).to eq(sorted_sites.to_json)
+      end
 
-    it 'returns a list of all sites as a JSON' do 
-      get '/sites', headers: headers
+      it 'returns them in order of product count' do 
+        top_site = sorted_sites.first
+        last_site = sorted_sites.last
 
-      expect(response.content_type).to eq("application/json; charset=utf-8")
-      expect(response.body).to eq(sites.to_json)
+        expect(parsed_body.first['name']).to eq(top_site.name)
+        expect(parsed_body.last['name']).to eq(last_site.name)
+      end
     end
   end
 
@@ -85,6 +84,8 @@ RSpec.describe "Sites", type: :request do
   end
 
   describe 'GET /sites/:id' do
+    let(:site) { FactoryBot.create(:site_with_products) }
+
     it 'displays the show page for a site' do
       get "/sites/#{site.id}"
 
@@ -93,21 +94,21 @@ RSpec.describe "Sites", type: :request do
     end
 
     context 'when the request wants JSON' do 
+      let(:site_name) { site.name }
+      let(:site_url) { site.url }
+      let(:products) { site.products }
+
+      before {  get "/sites/#{site.id}", headers: headers }
+
       it 'returns the site as a JSON' do
-        get "/sites/#{site.id}", headers: headers
-
         expect(response.content_type).to eq("application/json; charset=utf-8")
-        expect(response.body).to eq(site.to_json)
+        expect(parsed_body[:site][:name]).to eq(site_name)
+        expect(parsed_body[:site][:url]).to eq(site_url)
       end
+
+      it 'fetches the products for the given site' do
+        expect(parsed_body[:products].length).to eq(products.length)
+      end 
     end
-  end
-
-  describe 'GET /sites/:id/products' do     
-    it 'fetches the product count for the given site' do
-      get "/sites/#{site.id}/products", headers: headers 
-
-      expect(response.content_type).to eq("application/json; charset=utf-8")
-      expect(response.body).to eq({ "productCount": site.products.count }.to_json)
-    end 
   end
 end

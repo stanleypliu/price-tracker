@@ -5,7 +5,10 @@ class SitesController < ApplicationController
       format.json do
         # Needed to stop Chrome caching JSON
         response.headers['Vary'] = 'Accept'
-        render json: Site.all
+        render json: Site.left_joins(:products)
+                         .group('sites.id')
+                         .order('count(products.id) desc')
+                         .take(5)
       end
     end
   end
@@ -14,18 +17,15 @@ class SitesController < ApplicationController
   end
 
   def show
+    site = Site.find(individual_site_param)
+
     respond_to do |format|
       format.html
       format.json do
         response.headers['Vary'] = 'Accept'
-        render json: Site.find(individual_site_param)
+        render json: { site: site, products: site.products }
       end
     end
-  end
-
-  def fetch_products
-    # TODO - may need to include an `includes` here
-    render json: { productCount: Site.find(individual_site_param).products.count }
   end
 
   def create

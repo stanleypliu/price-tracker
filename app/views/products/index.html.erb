@@ -1,0 +1,11 @@
+<hero-products title="All Products">
+  <template v-slot>
+    <div class="section">
+      <%= link_to new_product_path, class: 'waves-effect waves-light btn' do %>
+        <i class="material-icons left">add</i> Add a new product
+      <% end %>
+    </div>
+  </template>
+</hero-products>
+
+<table-large></table-large>

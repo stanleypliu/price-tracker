@@ -4,5 +4,5 @@ Rails.application.routes.draw do
 
   resources :sites 
 
-  get 'sites/:id/products', to: 'sites#fetch_products'
+  resources :products 
 end
