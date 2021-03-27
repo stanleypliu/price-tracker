@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-export async function fetchProducts(id) {
+export async function fetchCurrentProducts() {
   try {
-    const response = await axios.get(`/sites/${id}/products`, {
+    const response = await axios.get('/products', {
       headers: {
         'Accept': 'application/json'
       }

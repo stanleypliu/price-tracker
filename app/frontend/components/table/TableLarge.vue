@@ -22,17 +22,12 @@
 </template>
 
 <script>
-import { useSites } from '@/composables/useSites'
+
 
 export default {
   name: 'TableLarge',
   setup() {
-    const { currentSites, getCurrentSites } = useSites()
-
-    return {
-      currentSites,
-      getCurrentSites
-    }
+  
   }
 }
 </script>

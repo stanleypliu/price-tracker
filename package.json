@@ -9,6 +9,7 @@
     "@vue/compiler-sfc": "^3.0.5",
     "axios": "^0.21.1",
     "materialize-css": "^1.0.0-rc.2",
+    "throttle-debounce": "^3.0.1",
     "turbolinks": "^5.2.0",
     "vue": "^3.0.5",
     "vue-loader": "^16.1.2",

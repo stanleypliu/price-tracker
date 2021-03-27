@@ -31,8 +31,11 @@ export default {
 
 <style lang="scss" scoped>
 .cards-large {
-  background-color: $grey-light;
+  background-color: rgba($green, 0.1);
   height: 100vh;
 
+  &__cards {
+    margin: 0;
+  }
 }
 </style>

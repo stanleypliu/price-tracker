@@ -1,11 +1,18 @@
 <template>
   <header>
-    <nav class="navbar">
+    <nav class="navbar" :class="{ scrolled: hasScrolled.value === true }">
       <div class="nav-wrapper container">
-        <!-- TODO - make a logo? -->
-        <a href="/" class="logo-text">Price<span class="logo-text__span">Tracker</span></a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="/sites" class="navbar__link">Sites</a></li>
+        <a href="/" class="logo-text">Home</a>
+        <ul id="nav-mobile" class="navbar__links">
+          <li>
+            <a href="/sites" class="navbar__link" data-text="Sites">Sites</a>
+          </li>
+          <li>
+            <a href="/products" class="navbar__link" data-text="Products"
+              >Products</a
+            >
+          </li>
+          <li><a href="" class="btn">Log In</a></li>
         </ul>
       </div>
     </nav>
@@ -13,14 +20,17 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { scrolledDistance } from '@/composables/useScroll'
 
 export default {
-  setup () {
-    const isCurrentPage = ref(false)
+  setup() {
+    const { hasScrolled, checkScroll, unlistenForScroll, listenForScroll } = scrolledDistance()
 
     return {
-      isCurrentPage
+      hasScrolled,
+      checkScroll,
+      unlistenForScroll,
+      listenForScroll
     }
   }
 }
@@ -37,18 +47,53 @@ header {
 }
 
 .logo-text {
-  font-size: 32px;
+  color: $green;
+  font-size: 20px;
+  font-weight: bold;
+}
 
-  &__span {
-    color: $purple;
-  }
+.nav-wrapper {
+  display: flex;
+  justify-content: space-between;
 }
 
 .navbar {
-  background-color: $light-green;
+  background-color: transparent;
+  box-shadow: none;
+
+  &__links {
+    max-width: 50%;
+    display: flex;
+  }
 
   &__link {
-    color: $grey-light;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    color: $green;
+    font-size: 20px;
+    transition: font-weight 0.2s ease-in;
+
+    &:hover {
+      background-color: transparent;
+      font-weight: bold;
+    }
+
+    // Stops layout from shifting upon hover
+    &::after {
+      content: attr(data-text) / "";
+      height: 0;
+      visibility: hidden;
+      overflow: hidden;
+      user-select: none;
+      pointer-events: none;
+      font-weight: bold;
+
+      @media speech {
+        display: none;
+      }
+    }
   }
 }
 </style>

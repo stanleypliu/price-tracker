@@ -27,15 +27,14 @@ export default {
     },
   },
   setup(props) {
-    const { numberOfProducts, siteName, siteUrl, getCurrentSite, getProducts, message } = useSite(props.siteId)
+    const { numberOfProducts, siteName, siteUrl, getCurrentSiteAndProducts, message } = useSite(props.siteId)
 
     return {
       message,
       numberOfProducts,
       siteName,
       siteUrl,
-      getCurrentSite,
-      getProducts
+      getCurrentSiteAndProducts
     }
   }
 }

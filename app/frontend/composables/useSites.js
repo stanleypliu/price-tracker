@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue'
-import { fetchCurrentSites, fetchSite } from '@/api/sites'
-import { fetchProducts } from '@/api/products'
+import { fetchCurrentSites, fetchSiteAndProducts } from '@/api/sites'
 import { createSite } from '@/api/sites'
+import { capitalise } from '@/helpers/capitalise'
 
 export function useSites() {
   const currentSites = ref([])
@@ -9,7 +9,7 @@ export function useSites() {
     const data = await fetchCurrentSites()
     currentSites.value = data
   }
-  const message = computed(() => `Currently we have ${currentSites.value.length} site(s) in the system`)
+  const message = computed(() => `Currently we are scanning through ${currentSites.value.length} site(s) to find the best prices!`)
 
   getCurrentSites()
 
@@ -24,15 +24,11 @@ export function useSite(id) {
   const siteName = ref('')
   const siteUrl = ref('')
   const numberOfProducts = ref(undefined)
-  const getCurrentSite = async () => {
-    const data = await fetchSite(id)
-    siteName.value = data.name
-    siteUrl.value = data.url
-  }
-
-  const getProducts = async () => {
-    const data = await fetchProducts(id) 
-    numberOfProducts.value = data.productCount
+  const getCurrentSiteAndProducts = async () => {
+    const data = await fetchSiteAndProducts(id)
+    siteName.value = data.site.name
+    siteUrl.value = data.site.url
+    numberOfProducts.value = data.products.length
   }
 
   const message = computed(() => {
@@ -45,16 +41,14 @@ export function useSite(id) {
     }
   })
 
-  getProducts()
-  getCurrentSite()
+  getCurrentSiteAndProducts()
 
   return {
     numberOfProducts,
     message,
     siteName,
     siteUrl,
-    getCurrentSite,
-    getProducts
+    getCurrentSiteAndProducts
   }
 }
 
@@ -63,11 +57,11 @@ export function createSites() {
   const siteUrl = ref('') 
   const createNewSite = async () => {
     await createSite({
-      'name': siteName.value.toUpperCase,
+      'name': capitalise(siteName.value),
       'url': encodeURI(siteUrl.value)
     })
-    siteName = ''
-    siteUrl = ''
+    siteName.value = ''
+    siteUrl.value = ''
   }
  
   return {

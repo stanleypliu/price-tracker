@@ -13,7 +13,7 @@ export async function fetchCurrentSites() {
   }
 }
 
-export async function fetchSite(id) {
+export async function fetchSiteAndProducts(id) {
   try {
     const response = await axios.get(`/sites/${id}`, {
       headers: {

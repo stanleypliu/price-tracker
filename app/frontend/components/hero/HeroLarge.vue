@@ -21,7 +21,7 @@
 <script>
 import { computed } from 'vue'
 import { getPhotoUrl } from '@/utils/photos'
-import scrollToElem from '@/composables/scrollTo'
+import { scrollToElem } from '@/composables/useScroll'
 import IconArrowDown from '@/components/icons/IconArrowDown.vue'
 
 export default {
@@ -66,7 +66,7 @@ export default {
 .hero-large {
   background-color: $grey-light;
   background-size: cover;
-  background-position: right;
+  background-position: center;
 
   filter: blur(3px);
 
@@ -75,6 +75,7 @@ export default {
   &__banner {
     background-color: rgba($white, 0.8);
     border-right: 1px solid $blue;
+    margin-bottom: 0;
 
     height: 100vh;
 

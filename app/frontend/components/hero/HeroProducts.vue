@@ -1,20 +1,19 @@
 <template>
-  <div class="container row hero-sites">
+  <div class="container row hero-products">
     <div class="row">
       <h1>{{ title }}</h1>
-    </div>
-    <div class="row">
       <h3>{{ message }}</h3>
+      <slot></slot>
     </div>
   </div>
   <hr>
 </template>
 
 <script>
-import { useSites } from '@/composables/useSites'
+import { useProducts } from '@/composables/useProducts'
 
 export default {
-  name: 'HeroSites',
+  name: 'HeroProducts',
   props: {
     title: {
       type: String,
@@ -22,11 +21,11 @@ export default {
     }
   },
   setup() {
-    const { currentSites, getCurrentSites, message } = useSites()
+    const { currentProducts, getCurrentProducts, message } = useProducts()
     
     return {
-      currentSites,
-      getCurrentSites,
+      currentProducts,
+      getCurrentProducts,
       message
     }
   }
@@ -34,7 +33,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .hero-sites {
+  .hero-products {
     margin-top: 100px;
   }
 </style>
