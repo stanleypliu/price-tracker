@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { fetchCurrentSites, fetchSiteAndProducts } from '@/api/sites'
-import { createSite } from '@/api/sites'
+import { createObject } from '@/api/create'
 import { capitalise } from '@/helpers/capitalise'
 
 export function useSites() {
@@ -56,7 +56,7 @@ export function createSites() {
   const siteName = ref('')
   const siteUrl = ref('') 
   const createNewSite = async () => {
-    await createSite({
+    await createObject('/sites', {
       'name': capitalise(siteName.value),
       'url': encodeURI(siteUrl.value)
     })

@@ -38,7 +38,7 @@ class SitesController < ApplicationController
       new_site.save
       render json: { 
         redirect_link: sites_path.to_s, 
-        message: 'Site successfully added', 
+        message: 'Your submission was successful.', 
         status: :created 
       }
     end

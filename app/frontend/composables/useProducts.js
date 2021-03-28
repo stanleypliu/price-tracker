@@ -1,5 +1,7 @@
 import { ref, computed } from 'vue'
 import { fetchCurrentProducts } from '@/api/products'
+import { createObject } from '@/api/create'
+import { capitalise } from '@/helpers/capitalise'
 
 export function useProducts() {
   const currentProducts = ref([])
@@ -15,5 +17,20 @@ export function useProducts() {
     message,
     currentProducts,
     getCurrentProducts
+  }
+}
+
+export function createProducts() {
+  const productName = ref('')
+  const createNewProduct = async () => {
+    await createObject('/products', {
+      'name': capitalise(productName.value)
+    })
+    productName.value = ''
+  }
+ 
+  return {
+    productName,
+    createNewProduct
   }
 }

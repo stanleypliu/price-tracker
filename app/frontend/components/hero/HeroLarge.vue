@@ -7,13 +7,11 @@
       class="icon-arrow-down"
     ></icon-arrow-down>
     <div class="hero-large__banner container row">
-      <transition>
-        <div class="hero-large__text col s8 offset-s3">
-          <h1 class="hero-large__title section">{{ title }}</h1>
-          <br />
-          <h3 class="hero-large__description section">{{ message }}</h3>
-        </div>
-      </transition>
+      <div class="hero-large__text col s8 offset-s3">
+        <h1 class="hero-large__title section">{{ title }}</h1>
+        <br />
+        <h3 class="hero-large__description section">{{ message }}</h3>
+      </div>
     </div>
   </div>
 </template>
@@ -73,19 +71,37 @@ export default {
   height: 100vh;
 
   &__banner {
-    background-color: rgba($white, 0.8);
-    border-right: 1px solid $blue;
     margin-bottom: 0;
 
     height: 100vh;
 
     position: absolute;
     top: 0;
+
+    &::before {
+      background-color: rgba($white, 0.8);
+      border-right: 1px solid $blue;
+      content: "";
+      position: absolute;
+
+      top: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-transform-origin: 50% 0;
+      -ms-transform-origin: 50% 0;
+      transform-origin: top;
+      -webkit-transform: skew(-5deg);
+      -ms-transform: skew(-5deg);
+      transform: skew(-5deg);
+      z-index: 1;
+    }
   }
 
   &__text {
     position: absolute;
     top: 20%;
+
+    z-index: 3;
   }
 
   &__title {

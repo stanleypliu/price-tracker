@@ -2,9 +2,11 @@
   <div class="container row hero-products">
     <div class="row">
       <h1>{{ title }}</h1>
-      <h3>{{ message }}</h3>
-      <slot></slot>
     </div>
+    <div class="row">
+      <h3>{{ message }}</h3>
+    </div>
+    <slot></slot>
   </div>
   <hr>
 </template>
@@ -21,11 +23,9 @@ export default {
     }
   },
   setup() {
-    const { currentProducts, getCurrentProducts, message } = useProducts()
+    const { message } = useProducts()
     
     return {
-      currentProducts,
-      getCurrentProducts,
       message
     }
   }

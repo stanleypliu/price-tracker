@@ -1,7 +1,5 @@
-export function formValidation() {
-  const checkIfEmpty = input => input === '' ? true : false 
-
-  return {
-    checkIfEmpty
-  }
+export function checkValidity(inputs) {
+  return inputs.every((input) => {
+    input.value !== '' 
+  })
 }

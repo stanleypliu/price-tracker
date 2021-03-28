@@ -81,6 +81,7 @@ export default {
 
   &__title {
     margin-top: 0;
+    margin-bottom: 40px;
   }
 
   &__wrapper {

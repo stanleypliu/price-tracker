@@ -22,11 +22,9 @@ export default {
     }
   },
   setup() {
-    const { currentSites, getCurrentSites, message } = useSites()
+    const { message } = useSites()
     
     return {
-      currentSites,
-      getCurrentSites,
       message
     }
   }

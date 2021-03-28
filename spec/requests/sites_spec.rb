@@ -74,7 +74,7 @@ RSpec.describe "Sites", type: :request do
       end
 
       it 'returns the error in the response' do 
-        expect(parsed_body[:message]).to eq("Site successfully added")
+        expect(parsed_body[:message]).to eq("Your submission was successful.")
       end
 
       it 'returns the redirect link in the response' do 

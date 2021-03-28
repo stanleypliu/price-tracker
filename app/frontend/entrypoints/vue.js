@@ -10,6 +10,7 @@ import ListSites from '../components/list/ListSites.vue'
 import NavBar from '../components/navbar/NavBar.vue'
 import TableLarge from '../components/table/TableLarge.vue'
 import VForm from '../components/forms/VForm.vue'
+import VFormProduct from '../components/forms/VFormProduct.vue'
 
 export default () => {
     document.addEventListener('DOMContentLoaded', () => {
@@ -24,7 +25,8 @@ export default () => {
             ListSites,
             NavBar,
             TableLarge,
-            VForm
+            VForm,
+            VFormProduct
           },
           mounted() {
             document.body.classList.add('loaded') 

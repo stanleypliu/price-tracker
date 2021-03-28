@@ -3,17 +3,17 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>URL</th>
+        <th>Category</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="site in currentSites" :key="site.name">
-        <td>{{ site.name }}</td>
-        <td>{{ site.url }}</td>
+      <tr v-for="product in currentProducts" :key="product.name">
+        <td>{{ product.name }}</td>
+        <td>'TODO - Not yet Implemented'</td>
         <td>
-          <a :href="`/sites/${site.id}`" class="waves-effect waves-light btn"
-            >Check it out!</a
+          <a :href="`/products/${product.id}`" class="waves-effect waves-light btn"
+            >Browse offerings!</a
           >
         </td>
       </tr>
@@ -22,12 +22,17 @@
 </template>
 
 <script>
-
+import { useProducts } from '@/composables/useProducts'
 
 export default {
   name: 'TableLarge',
   setup() {
-  
+    const { currentProducts, getCurrentProducts } = useProducts()
+    
+    return {
+      currentProducts,
+      getCurrentProducts
+    }
   }
 }
 </script>

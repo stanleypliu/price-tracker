@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nav class="navbar" :class="{ scrolled: hasScrolled.value === true }">
+    <nav class="navbar">
       <div class="nav-wrapper container">
         <a href="/" class="logo-text">Home</a>
         <ul id="nav-mobile" class="navbar__links">
@@ -18,23 +18,6 @@
     </nav>
   </header>
 </template>
-
-<script>
-import { scrolledDistance } from '@/composables/useScroll'
-
-export default {
-  setup() {
-    const { hasScrolled, checkScroll, unlistenForScroll, listenForScroll } = scrolledDistance()
-
-    return {
-      hasScrolled,
-      checkScroll,
-      unlistenForScroll,
-      listenForScroll
-    }
-  }
-}
-</script>
 
 <style lang="scss" scoped>
 header {
