@@ -5,10 +5,7 @@ class SitesController < ApplicationController
       format.json do
         # Needed to stop Chrome caching JSON
         response.headers['Vary'] = 'Accept'
-        render json: Site.left_joins(:products)
-                         .group('sites.id')
-                         .order('count(products.id) desc')
-                         .take(5)
+        render json: top_sites
       end
     end
   end
@@ -55,5 +52,13 @@ class SitesController < ApplicationController
 
   def individual_site_param
     params.permit(:id)['id'].to_i
+  end
+
+  def top_sites
+    Site.accepted_sites
+        .left_joins(:products)
+        .group('sites.id')
+        .order('count(products.id) desc')
+        .take(5)
   end
 end

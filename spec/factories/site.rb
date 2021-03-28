@@ -21,6 +21,8 @@ FactoryBot.define do
       sequence(:url) { |n| "https://www.site#{n}.com" }
 
       factory :sequenced_site_with_products do
+        status { 'accepted' }
+
         transient do 
           products_count { rand(1..10) }
         end
