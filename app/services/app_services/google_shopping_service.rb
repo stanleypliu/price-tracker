@@ -1,14 +1,12 @@
 module AppServices
-  class GoogleSearchService
+  class GoogleShoppingService
     def initialize(name:)
       @name = name
     end
 
-    def make_request
+    def call
       
-    end
 
-    def call 
       42
     end
   end

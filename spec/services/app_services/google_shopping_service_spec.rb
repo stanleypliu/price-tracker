@@ -1,9 +1,11 @@
-RSpec.describe AppServices::GoogleSearchService do 
+RSpec.describe AppServices::GoogleShoppingService do 
   let(:name) { 'product 1' }
   let(:service) { described_class.new(name: name) }
 
   describe '#call' do 
-    it 'makes a request to the Google Products API' do 
+    before { service.call }
+
+    it 'makes a request to the Google Shopping Results API' do 
       pending ''
     end
 

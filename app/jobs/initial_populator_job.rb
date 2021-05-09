@@ -4,7 +4,7 @@ class InitialPopulatorJob < ApplicationJob
   def perform(product)
     name = product.name
 
-    google_id = AppServices::GoogleSearchService.new(name: name).call
+    google_id = AppServices::GoogleShoppingService.new(name: name).call
 
     product.update({ google_product_id: google_id })
   end
