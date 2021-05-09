@@ -17,7 +17,7 @@ FactoryBot.define do
     end 
 
     factory :sequenced_site do 
-      sequence(:name) { |n| "Site #{n}" }
+      sequence(:name) { |_n| random_name }
       sequence(:url) { |n| "https://www.site#{n}.com" }
 
       factory :sequenced_site_with_products do

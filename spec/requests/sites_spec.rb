@@ -12,22 +12,21 @@ RSpec.describe "Sites", type: :request do
     end
 
     context 'when the request wants JSON' do 
-      let(:sites) { FactoryBot.create_list(:sequenced_site_with_products, 5) }
-      let(:sorted_sites) { sites.sort_by { |site| [-site.products.count, site.name] } }
+      let(:sites) { FactoryBot.build_list(:sequenced_site_with_products, 5).sort_by { |site| site.name } }
 
       before do 
-        sites
+        sites.map(&:save)
         get '/sites', headers: headers 
       end
 
       it 'returns a list of the top 5 sites as a JSON' do 
         expect(response.content_type).to eq("application/json; charset=utf-8")
-        expect(response.body).to eq(sorted_sites.to_json)
+        expect(response.body).to eq(sites.to_json)
       end
 
       it 'returns them in order of product count' do 
-        top_site = sorted_sites.first
-        last_site = sorted_sites.last
+        top_site = sites.first
+        last_site = sites.last
 
         expect(parsed_body.first['name']).to eq(top_site.name)
         expect(parsed_body.last['name']).to eq(last_site.name)
@@ -67,7 +66,13 @@ RSpec.describe "Sites", type: :request do
     end
 
     context 'when trying to save a valid site not yet present' do 
-      before { post_request }
+      before(:each) do |test|
+        post_request unless test.metadata[:before_response]
+      end
+
+      it 'saves the product', :before_response do 
+        expect { post_request }.to change{ Site.count }.from(0).to(1)
+      end
 
       it 'returns the status code - created' do
         expect(parsed_body[:status]).to eq("created")

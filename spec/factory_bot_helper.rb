@@ -7,3 +7,9 @@ Dir["#{Rails.root}/spec/strategies/*.rb"].sort.each do |file|
 
   FactoryBot.register_strategy(strategy, strategy_name)
 end
+
+module FactoryBot
+  class SyntaxRunner
+    include Helpers
+  end
+end

@@ -8,4 +8,8 @@ module Helpers
   def body
     response.body
   end
+
+  def random_name
+    ('a'..'z').to_a.shuffle.join
+  end
 end

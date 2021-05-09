@@ -1,4 +1,9 @@
 class ProductsController < ApplicationController
+  MESSAGES = {
+    already_present: "That product\'s already present",
+    success: 'Your submission was successful.'
+  }.freeze
+
   def index 
     respond_to do |format|
       format.html
@@ -18,14 +23,15 @@ class ProductsController < ApplicationController
     if new_product.id.present?
       render json: { 
         redirect_link: new_product_path.to_s, 
-        message: "That product\'s already present", 
+        message: MESSAGES[:already_present], 
         status: :unprocessable_entity 
       }
     else
+      # Initiate background job via Google Search API
       new_product.save
       render json: { 
         redirect_link: products_path.to_s, 
-        message: 'Your submission was successful.', 
+        message: MESSAGES[:success], 
         status: :created 
       }
     end

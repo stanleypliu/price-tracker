@@ -27,10 +27,7 @@ export default () => {
             TableLarge,
             VForm,
             VFormProduct
-          },
-          mounted() {
-            document.body.classList.add('loaded') 
-          } 
+          }
         }).mount('#v-app')
     })
 }
