@@ -29,6 +29,7 @@ class ProductsController < ApplicationController
     else
       # Initiate background job via Google Search API
       new_product.save
+      new_product.populate_initial_info
       render json: { 
         redirect_link: products_path.to_s, 
         message: MESSAGES[:success], 

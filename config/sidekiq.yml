@@ -1,0 +1,4 @@
+---
+:pidfile: tmp/pids/sidekiq.pid
+development:
+  :concurrency: 5
