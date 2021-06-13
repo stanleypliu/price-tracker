@@ -27,8 +27,8 @@ class ProductsController < ApplicationController
         status: :unprocessable_entity 
       }
     else
-      # Initiate background job via Google Search API
       new_product.save
+      # Initiate background job via Mechanize 
       new_product.populate_initial_info
       render json: { 
         redirect_link: products_path.to_s, 

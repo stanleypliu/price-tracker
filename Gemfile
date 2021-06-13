@@ -28,6 +28,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'vite_rails'
 gem 'sidekiq'
+gem 'mechanize'
 
 group :development, :test do
   gem 'pry-byebug'

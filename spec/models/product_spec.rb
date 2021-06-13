@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  let(:product) { FactoryBot.build(:product, google_product_id: nil) }
+  let(:product) { FactoryBot.build(:product, amazon_product_id: nil) }
 
   describe 'validations' do 
     it 'won\'t save a product that already exists' do

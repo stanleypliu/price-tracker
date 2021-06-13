@@ -3,19 +3,19 @@ require 'rails_helper'
 RSpec.describe InitialPopulatorJob, type: :job do
   let(:product) { FactoryBot.create(:static_product) }
   let(:fetched_id) { '24' }
-  let(:google_shopping_service) { instance_double(AppServices::GoogleShoppingService, call: fetched_id) }
+  let(:amazon_search_service) { instance_double(AppServices::AmazonSearchService, call: fetched_id) }
 
   subject(:pass_product_id) { described_class.new.perform(product) }
 
-  before { allow(AppServices::GoogleShoppingService).to receive(:new).and_return(google_shopping_service) }
+  before { allow(AppServices::AmazonSearchService).to receive(:new).and_return(amazon_search_service) }
 
   describe '#perform_later' do
     it 'enqueues a job' do
       expect { described_class.perform_later }.to have_enqueued_job
     end
 
-    it 'adds the Google Product ID to the site to be saved' do
-      expect(google_shopping_service).to receive(:call)
+    it 'adds the Amazon ID to the site to be saved' do
+      expect(amazon_search_service).to receive(:call)
       
       pass_product_id
     end
@@ -23,7 +23,7 @@ RSpec.describe InitialPopulatorJob, type: :job do
     it 'saves the site at the end' do     
       pass_product_id
 
-      expect(product.google_product_id).to eq(fetched_id)
+      expect(product.amazon_product_id).to eq(fetched_id)
     end
   end
 end
