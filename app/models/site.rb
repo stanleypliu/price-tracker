@@ -9,4 +9,5 @@ class Site < ApplicationRecord
   enum status: %i[pending accepted]
 
   scope :accepted_sites, -> { where(status: :accepted) }
+  scope :top_sites, -> { accepted_sites.left_joins(:products).group('sites.id').order('count(products.id) desc') }
 end
