@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+  web:
+    build: .
+    command: /bin/bash -l -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/myapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - redis
+      - webpacker
+  redis:
+    image: redis
+    ports: 
+      - 6379:6379
+    volumes:
+      - price_tracker_redis_data:/data
+  sidekiq:
+    build: .
+    volumes:
+      - .:/price-tracker
+    environment:
+      RAILS_ENV: development
+    depends_on:
+      - db
+      - redis
+    command: /bin/bash -l -c "bundle exec sidekiq"
+  webpacker: 
+    build: .
+    command: /bin/bash -l -c "rm -rf /price-tracker/app/public/packs; rm -rf /price-tracker/tmp/cache/webpacker; /price-tracker/docker/webpacker"
+    volumes: 
+      - .:/price-tracker
+      - price_tracker_bundler:/usr/local/bundle
+    ports:
+      - '3035:3035'
+
+volumes:
+  price_tracker_redis_data:
+  price_tracker_bundler:

@@ -1,0 +1,17 @@
+.git*
+log/*
+tmp/*
+Dockerfile
+README.md
+.env*
+.DS_Store
+.bin
+.byebug_history
+.rspec
+test
+config/deploy
+public/packs
+public/packs-test
+node_modules
+yarn-error.log
+coverage/
