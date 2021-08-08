@@ -4,12 +4,13 @@ services:
   db:
     image: postgres
     volumes:
-      - ./tmp/db:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: password
-  web:
-    build: .
-    command: /bin/bash -l -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - .:/myapp
     ports:
@@ -17,7 +18,10 @@ services:
     depends_on:
       - db
       - redis
-      - webpacker
+      - vite
+    env_file: .env
+    environment:
+      VITE_RUBY_HOST: vite
   redis:
     image: redis
     ports: 
@@ -33,16 +37,23 @@ services:
     depends_on:
       - db
       - redis
-    command: /bin/bash -l -c "bundle exec sidekiq"
-  webpacker: 
+    env_file: .env
+    environment:
+      RAILS_ENV: development
+    entrypoint: ./entrypoint-sidekiq.sh
+  vite:
     build: .
-    command: /bin/bash -l -c "rm -rf /price-tracker/app/public/packs; rm -rf /price-tracker/tmp/cache/webpacker; /price-tracker/docker/webpacker"
-    volumes: 
-      - .:/price-tracker
-      - price_tracker_bundler:/usr/local/bundle
+    entrypoint: ./docker/vite
+    environment:
+      DEBUG: '*vite*'
+      RAILS_ENV: development
+      VITE_RUBY_HOST: 0.0.0.0
     ports:
-      - '3035:3035'
+      - "3036:3036"
+    volumes:
+      - .:/price-tracker
 
 volumes:
+  db_data:
   price_tracker_redis_data:
   price_tracker_bundler:
