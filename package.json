@@ -17,6 +17,9 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-import": "^14.0.2",
+    "postcss-preset-env": "^6.7.0",
     "sass": "^1.32.8",
     "vite": "^2.0.3",
     "vite-plugin-ruby": "^1.0.13"
